@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cellContainer {
+  position: absolute;
+  border: 1px dashed gray;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aquamarine;
+}
