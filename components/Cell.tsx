@@ -1,16 +1,52 @@
 import styles from "../styles/Cell.module.css";
 
-const CellType = {
+export const CellType = {
   Empty: "empty",
   Pop: "pop",
+  MinusPop: "minuspop",
 };
 
 const Config = {
-  size: 32,
+  size: 64,
 };
 
-const Cell = ({ x, y }: { x: number; y: number }) => {
-  console.log({ x, y });
+const Cell = ({
+  x,
+  y,
+  cellType,
+  handleCellClick,
+}: {
+  x: number;
+  y: number;
+  cellType: "empty" | "pop";
+  handleCellClick: any;
+}) => {
+  const getStyles = () => {
+    if (cellType === CellType.Pop) {
+      return {
+        backgroundColor: "orange",
+      };
+    } else if (cellType === CellType.MinusPop) {
+      return {
+        backgroundColor: "red",
+      };
+    } else {
+      return {
+        backgroundColor: "aquamarine",
+      };
+    }
+  };
+
+  const updateScore = () => {
+    if (cellType === CellType.Pop) {
+      handleCellClick(1);
+    } else if (cellType === CellType.MinusPop) {
+      handleCellClick(-1);
+    } else {
+      handleCellClick(0);
+    }
+  };
+
   return (
     <div
       className={styles.cellContainer}
@@ -19,6 +55,11 @@ const Cell = ({ x, y }: { x: number; y: number }) => {
         left: x * Config.size,
         height: Config.size,
         width: Config.size,
+        ...getStyles(),
+      }}
+      onClick={() => {
+        console.log({ cellType });
+        updateScore();
       }}
     ></div>
   );
